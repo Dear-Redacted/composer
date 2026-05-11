@@ -1,0 +1,1 @@
+async function e(e,t){if(!window.redactedComposer?.openGmailCompose)throw Error(`Electron bridge not available`);let n=await window.redactedComposer.openGmailCompose(e,t);if(!n?.success)throw Error(`Failed to open Gmail: ${n?.error??`Unknown error`}`)}export{e as openGmailComposeElectron};

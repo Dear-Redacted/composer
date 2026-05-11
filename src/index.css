@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/*
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/CourierPrime-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/CourierPrime-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+*/
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/CourierPrime-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --font-mono: "Courier Prime", monospace;
+  --app-bg: #080808;
+  --app-bg-alt: #1c1c1c;
+  --app-container: #121212;
+  --app-fg: #d4d4d2;
+  --app-fg-muted: #4a4a4a;
+  --app-accent: #f5f5f3;
+  --app-border: #1c1c1c;
+  --app-scrollbar: #222;
+  --app-grain: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0) 100%);
+  --app-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+  --app-success: #5b8266;
+  --app-error: #b85c5c;
+}
+
+/*
+:root.light {
+  --app-bg: #f4efe7;
+  --app-bg-alt: #ebe2d6;
+  --app-container: #fcf9f4;
+  --app-fg: #181612;
+  --app-fg-muted: #6f6658;
+  --app-accent: #15130f;
+  --app-border: #d8cfc3;
+  --app-scrollbar: #b6aa99;
+  --app-grain: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(96, 72, 45, 0.07) 100%);
+  --app-shadow: 0 24px 70px rgba(73, 52, 29, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  color-scheme: light;
+}
+*/
+
+:root.light {
+  /* Paper */
+  --app-bg: #e2e2df;
+  --app-bg-alt: #e8dfd1;
+  --app-container: #fafaf8;
+
+  --app-fg: #282828;
+  --app-fg-muted: #8c8c8c;
+
+  --app-accent: #2b2118;
+
+  --app-border: #d1d1cf;
+  --app-scrollbar: #b3a592;
+
+  --app-selection: #d9c7a7;
+  --app-caret: #2a2017;
+  --app-grain: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.04) 100%);
+  --app-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+  --app-success: #5b8266;
+  --app-error: #b85c5c;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-fg);
+  font-family: var(--font-mono);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @apply overflow-hidden;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+.screen-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--app-grain);
+  z-index: 10;
+}
+
+.editor-container {
+  background: var(--app-container);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+}
+
+/* Custom scrollbar for better immersion */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--app-scrollbar);
+}
+
+/* Editor gutter (line numbers) */
+.editor-gutter {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  background: transparent;
+}
+
+.editor-gutter .editor-line-number {
+  color: var(--app-fg-muted);
+  line-height: 1.8;
+  text-align: right;
+  padding-right: 5px;
+  user-select: none;
+  pointer-events: none;
+}

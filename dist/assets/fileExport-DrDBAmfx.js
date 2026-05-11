@@ -1,0 +1,1 @@
+function e(e,t){let n=t||`Untitled.txt`,r=new Blob([e],{type:`text/plain;charset=utf-8`}),i=URL.createObjectURL(r),a=document.createElement(`a`);a.href=i,a.download=n,document.body.appendChild(a),a.click(),document.body.removeChild(a),URL.revokeObjectURL(i)}export{e as downloadTextFile};

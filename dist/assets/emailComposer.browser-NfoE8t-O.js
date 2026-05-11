@@ -1,0 +1,1 @@
+import{t as e}from"./emailComposer.shared-BcanoOtv.js";async function t(t,n){let r=e(t,n);if(!window.open(r,`_blank`))throw Error(`Browser popup was blocked. Please enable popups and try again.`)}export{t as openGmailComposeBrowser};
