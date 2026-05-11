@@ -1,6 +1,7 @@
 module.exports = {
   appId: "com.dearredacted.composer",
   productName: "Dear Redacted Composer",
+  publish: null,
   directories: {
     output: "release",
   },
