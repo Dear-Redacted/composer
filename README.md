@@ -1,7 +1,7 @@
 # Dear Redacted Composer
 
 <p align="center">
-  <img src="./assets/logo.png" alt="Architects & Redacted Logo" />
+  <img width="50%" src="./assets/A&R_logo.png" alt="Architects & Redacted Logo" />
 </p>
 
 <p align="center">
@@ -59,13 +59,19 @@ The browser-based version is available here:
 
 ### Editor Dark Interface
 
-![Editor Screenshot](./assets/screenshots/editor.png)
+![Editor Screenshot](./assets/screenshot-wide-dark.png)
 
 ---
 
 ### Editor Light Interface
 
-![Redaction Screenshot](./assets/screenshots/redaction.png)
+![Redaction Screenshot](./assets/screenshot-wide-light.png)
+
+---
+
+### Editor Small Interface
+
+![Redaction Screenshot](./assets/screenshot-dark.png)
 
 ---
 
