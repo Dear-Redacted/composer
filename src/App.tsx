@@ -266,7 +266,7 @@ export default function App() {
         {/* Status Bar */}
         <div className="status-bar flex items-center gap-6 border-b border-[var(--app-border)] pb-5 uppercase">
           <div className="flex items-center gap-6 flex-wrap">
-            <span className="text-[12px] tracking-[1.5px] text-[var(--app-fg-muted)]">Communications Terminal: Connected</span>
+            <h1 className="text-[12px] tracking-[1.5px] text-[var(--app-fg-muted)]">Composer Terminal: Connected</h1>
           </div>
 
           <div className="ml-auto flex items-center gap-4">
