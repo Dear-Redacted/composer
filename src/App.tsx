@@ -61,9 +61,11 @@ export default function App() {
   // Use extracted hooks
   const { statusMessage, showMessage } = useStatusMessage();
   const { scanForRedaction } = useRedaction(
+    editorRef,
     newText => {
       setContent(newText);
-      // Removed manual cursor positioning completely! The browser handles it.
+
+      // Keep this for the UI redaction indicator timing
       requestAnimationFrame(() => setIsRedacting(false));
     },
     () => setDeviationDetected(true),
