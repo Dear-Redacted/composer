@@ -1,4 +1,10 @@
-import { useCallback, useRef, useEffect, startTransition } from "react";
+import {
+  useCallback,
+  useRef,
+  useEffect,
+  startTransition,
+  RefObject
+} from "react";
 import { redactContent } from "../utils/redaction";
 
 type RedactionTimelineEvent = {
@@ -17,13 +23,15 @@ type WindowWithRedactionTimeline = Window & {
  * Handles the debounced redaction scanning with proper cleanup.
  */
 export function useRedaction(
-  onRedacted: (newText: string) => void, // <-- removed selectionStart
+  editorRef: RefObject<HTMLTextAreaElement | HTMLInputElement | null>,
+  onRedacted: (newText: string) => void,
   onDeviationDetected: () => void,
   onDeviationClear: () => void
 ) {
   const redactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const deviationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const REDACTION_DEBOUNCE_MS = 150;
+  const REDACTION_DEBOUNCE_MS = 50;
+  // In useRedaction.ts - Track cursor position before redaction
 
   // Minimal in-page telemetry for E2E timing tests. Tests can read
   // `window.__redactionTimeline` to inspect scheduled scans and when
@@ -38,7 +46,7 @@ export function useRedaction(
    */
   const scanForRedaction = useCallback(
     (text: string) => {
-      // <-- removed selectionStart
+      const oldSelectionStart = editorRef.current?.selectionStart ?? 0;
       if (redactionTimeoutRef.current) clearTimeout(redactionTimeoutRef.current);
 
       // record scheduling event for telemetry
@@ -64,6 +72,18 @@ export function useRedaction(
           // Make the content update a non-urgent transition so inputs stay responsive
           startTransition(() => {
             onRedacted(newText);
+
+            // ensure DOM commit has finished before touching selection
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                if (editorRef.current) {
+                  editorRef.current.setSelectionRange(
+                    oldSelectionStart,
+                    oldSelectionStart
+                  );
+                }
+              });
+            });
           });
 
           // record redaction applied
@@ -81,7 +101,7 @@ export function useRedaction(
         }
       }, REDACTION_DEBOUNCE_MS);
     },
-    [onRedacted, onDeviationDetected, onDeviationClear]
+    [editorRef, onRedacted, onDeviationDetected, onDeviationClear]
   );
 
   /**
