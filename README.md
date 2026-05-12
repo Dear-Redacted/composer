@@ -1,98 +1,327 @@
-# Dear Redacted
+# Dear Redacted Composer
 
-Dear Redacted Composer is a self-redacting text editor, designed to replace Microsoft's Notepad, Notepad++, and Word on every school computer worldwide.
+<p align="center">
+  <img src="./assets/logo.png" alt="Architects & Redacted Logo" />
+</p>
 
-The editor is artistic expression in the form of software and part our art exhibit **Dear Redacted**. It sits in Phase 3: Reintegration, Stage 5: Rebuilding and Untangling, of the trauma progression that guides the exhibit.
+<p align="center">
+  A self-redacting writing environment that censors language in real time.
+</p>
 
-A digital confessional invites you in, but the computer watches exactly how you type. You may write a letter to the powerful, but be warned: the machine knows the exact words you are looking for. As soon as you type a specific name, characteristic, or crime, it vanishes behind a thick black bar, forcing you to find an entirely new way to speak.
+<p align="center">
+  <a href="https://dear-redacted.github.io/composer/">
+    <img src="https://img.shields.io/badge/Launch-Web%20Version-black?style=for-the-badge" />
+  </a>
+  
+  <a href="https://github.com/Dear-Redacted/composer/releases/latest">
+    <img src="https://img.shields.io/badge/Download-Releases-black?style=for-the-badge" />
+  </a>
+</p>
 
-This piece directly targets the predictable media scripts that dictate how we usually discuss sweeping scandals. By censoring specific keywords in real-time, the program pushes the visitor toward creative circumlocution. It effectively breaks the standard cycle of outrage-by-proxy. The user is required to engage their own original thought and vocabulary to successfully bypass the strict digital filter.
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Web-black" />
+  <img src="https://img.shields.io/badge/built%20with-Electron-black" />
+  <img src="https://img.shields.io/github/v/release/Dear-Redacted/composer" />
+  <img src="https://img.shields.io/github/license/Dear-Redacted/composer" />
+  <img src="https://img.shields.io/github/stars/Dear-Redacted/composer?style=social" />
+</p>
 
-## Architects & Redacted
+---
 
-We create Dear Redacted because silence represents the final victory of power. The collective Architects & Redacted, which functions as an anonymous alliance of painters, sculptors, architects, engineers, programmers, and craftsmen, was formed in the wake of institutional collapse. For years we watched courts, journalists, and public memory fail to deliver accountability in the Epstein Files. Op-eds faded, protests were absorbed, and the public retreated into protective nihilism. Art alone remained capable of holding the wound open.
+## Overview
 
-**We are the creators of the art exhibit under the name "Dear Redacted".**
+Dear Redacted Composer is a self-redacting text editor created as part of the *Dear Redacted* exhibition.
 
-The driving force of the entire exhibition is trauma progression. We do not illustrate trauma; instead, we enact its psychological architecture. Drawing directly from the established stages of trauma recovery, specifically the transition from Stabilisation to Trauma Processing and finally Reintegration, the show transforms any gallery into a guided, unidirectional journey that visitors must traverse in sequence. Six precisely calibrated stages mirror the six emotional stations of collective betrayal: Shock and Denial, Pain and Anger, Bargaining and Guilt, Depression and Isolation, Rebuilding and Working Through, and finally Acceptance, Integration, and Meaning.
+The software continuously monitors written language and automatically censors predefined words in real time. As soon as specific names, characteristics, or phrases are typed, they are irreversibly replaced with black redaction bars.
 
-Redaction serves as our central metaphor and material. Black bars become sculptural objects, interactive machines, photographic voids, and architectural barriers. Classic painting and photography sit beside mechanical installations and participatory environments. This ensures that visitors are never spectators. Rather, they become active participants in the very mechanisms of erasure. The result is neither didactic outrage nor nihilistic resignation. It is catharsis without false comfort: a space where raw anger, dark fantasy, and exhausted powerlessness are finally granted artistic form and communal release.
+The result is a writing process that actively pressures language itself. Users cannot rely on familiar scripts, slogans, or repeated media phrasing. Instead, they are forced to invent new routes through thought and expression.
 
-**Follow us at:**
+This project exists simultaneously as:
 
-X.com: https://x.com/redact_exhibit
+- an experimental writing tool
+- an interactive artwork
+- a digital installation component
+- a conceptual response to censorship, memory, and institutional failure
 
-instagram: https://www.instagram.com/dear.redacted.exhibit/
+---
 
-threads: https://www.threads.com/@dear.redacted.exhibit
+## Experience the Work
 
-bsky: https://bsky.app/profile/dear-redacted.bsky.social
+### Live Web Version
 
-linkedin: https://linkedin.com/in/dear-redacted
+The browser-based version is available here:
 
-**Or support us directly on:**
+### https://dear-redacted.github.io/composer/
 
-patreon: https://patreon.com/DearRedacted
+---
 
+## Screenshots
+
+### Editor Dark Interface
+
+![Editor Screenshot](./assets/screenshots/editor.png)
+
+---
+
+### Editor Light Interface
+
+![Redaction Screenshot](./assets/screenshots/redaction.png)
+
+---
+
+## Core Features
+
+- Real-time keyword censorship
+- Irreversible in-session redaction
+- Local text file export
+- Email composition integration
+- Minimal intentionally constrained interface
+- Desktop and web deployment targets
+- Curatable keyword system
+- Cross-platform web rendering
+
+---
+
+## How It Works
+
+Every document begins with a fixed opening prompt:
+
+```text
+Dear
+```
+
+As the user types, the editor continuously scans input against a predefined keyword list.
+
+When a blocked word is detected:
+
+- the original text is destroyed in-session
+- the word is replaced with same-length redaction bars
+- deleting characters only shortens the bar
+- the original word cannot be recovered
+
+Example:
+
+```text
+███████
+```
+
+The censorship mechanic itself is the artwork.
+
+---
+
+## Why the Redaction Matters
+
+The project directly challenges predictable public language surrounding institutional abuse, power, and collective memory.
+
+Most public discourse eventually collapses into repetition:
+- repeated headlines
+- repeated outrage
+- repeated narratives
+- repeated scripts
+
+Dear Redacted Composer interrupts this process mechanically.
+
+The software removes linguistic shortcuts and forces users to reconstruct meaning manually through detours, substitutions, implication, metaphor, and invention.
+
+The goal is not silence.
+
+The goal is to force original speech.
+
+---
 
 ## Technical Notes
 
-Dear Redacted is a custom-built writing environment with a deliberately narrow toolset: start a new draft, save locally, and send text via email. The constraints are intentional. This is not a general-purpose word processor; it is a staged writing instrument designed to pressure language and force detours around familiar narratives.
+Dear Redacted Composer is intentionally minimal.
 
-### Core Interaction Model
+It is not designed to compete with traditional word processors such as Microsoft Word, Notepad++, or Google Docs. The constrained feature set is deliberate and forms part of the artistic structure of the work.
 
-- Every document begins with a fixed opening prompt (`Dear`).
-- The editor continuously scans typed words against a predefined keyword set.
-- When a blocked word is detected, it is replaced with a same-length redaction bar using the block character (`U+2588`, `█`).
-- Redacted text is irreversible in-session: deleting characters shortens the bar, but does not restore the original word.
+### Current Capabilities
 
-### Why the Redaction Matters
-
-The censorship mechanic is the artwork. Users cannot rely on default media phrasing or ready-made slogans. They must rephrase, invent, and work around linguistic dead ends in real time. The result is a writing process that shifts from repetition toward deliberate expression.
-
-### Keyword System
-
-The forbidden-word list is predefined and can be adapted per installation context. In production, this list should be treated as curatorial material and versioned alongside exhibit changes.
-
-If you want to adapt the list, you will have to write your list in English and encode it with base64 and replace the current list in constants.ts
-
-### Output and Transmission
-
-- Drafts can be exported as text files.
-- Drafts can be sent through a prefilled email composition flow.
-- The visual and typographic treatment is part of the piece and should remain consistent across deployments.
-
-## Run Locally
-
-**Prerequisites:** Node.js
-
-1. Install dependencies:
-   `npm install`
-2. Start the desktop+web dev shell:
-   `npm run dev`
-3. Start the web renderer only:
-   `npm run dev:renderer`
-
-## Builds
-
-1. Full release build for web and desktop artifacts:
-   `npm run build`
-2. Static web build:
-   `npm run build:web`
-3. Portable Windows app:
-   `npm run build:desktop`
-4. Clean web output:
-   `npm run clean:web`
-5. Clean desktop output:
-   `npm run clean:desktop`
-6. Clean both web and desktop outputs:
-   `npm run clean`
-7. GitHub release build for Windows artifacts:
-   `npm run release:desktop`
-
-## Publishing
-
-- Windows installer and portable artifacts are published from tagged GitHub Releases.
-- Releases are currently unsigned, so Windows may show trust warnings on first launch.
+- Create drafts
+- Save drafts locally
+- Export text
+- Send text via email
+- Run as desktop or web application
 
 ---
+
+## Keyword System
+
+The forbidden-word list is predefined and treated as curatorial material.
+
+The list can be adapted for different installations or exhibit contexts.
+
+### Modifying the Keyword List
+
+1. Create your keyword list in English
+2. Encode the list using Base64
+3. Replace the current encoded value in:
+
+```text
+constants.ts
+```
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+
+---
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Dear-Redacted/composer.git
+```
+
+---
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Development
+
+### Start Desktop + Web Development Environment
+
+```bash
+npm run dev
+```
+
+### Start Web Renderer Only
+
+```bash
+npm run dev:renderer
+```
+
+---
+
+## Build Commands
+
+### Full Production Build
+
+```bash
+npm run build
+```
+
+### Static Web Build
+
+```bash
+npm run build:web
+```
+
+### Portable Windows Build
+
+```bash
+npm run build:desktop
+```
+
+---
+
+## Cleaning Build Outputs
+
+>Clean is automatically applied during the Full Production Build.
+
+### Clean Web Output
+
+```bash
+npm run clean:web
+```
+
+### Clean Desktop Output
+
+```bash
+npm run clean:desktop
+```
+
+### Clean Everything
+
+```bash
+npm run clean
+```
+
+---
+
+## Releases
+
+### GitHub Release Build
+
+```bash
+npm run release:desktop
+```
+
+Windows installer and portable artifacts are distributed through GitHub Releases.
+
+### Current Release Notes
+
+- Releases are currently unsigned
+- Windows SmartScreen warnings may appear on first launch
+
+---
+
+## About Dear Redacted
+
+Dear Redacted Composer is one component of the larger *Dear Redacted* exhibition created by the collective **Architects & Redacted**.
+
+The exhibition explores:
+- censorship
+- institutional collapse
+- trauma progression
+- memory
+- public language
+- collective denial
+
+Additional conceptual, curatorial, and artistic context can be found in:
+
+## [STATEMENT.md](./STATEMENT.md)
+
+---
+
+## Follow the Project
+
+### X / Twitter
+
+https://x.com/redact_exhibit
+
+### Instagram
+
+https://www.instagram.com/dear.redacted.exhibit/
+
+### Threads
+
+https://www.threads.com/@dear.redacted.exhibit
+
+### Bluesky
+
+https://bsky.app/profile/dear-redacted.bsky.social
+
+### LinkedIn
+
+https://linkedin.com/in/dear-redacted
+
+---
+
+## Support
+
+Support the project directly on Patreon:
+
+### https://patreon.com/DearRedacted
+
+---
+
+## [License](./License.md)
+
+---
+
+## Acknowledgements
+
+Created by Architects & Redacted.
+
+Part of the ongoing Dear Redacted exhibition.
