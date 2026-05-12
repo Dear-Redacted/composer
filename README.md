@@ -30,11 +30,9 @@
 
 ## Overview
 
-Dear Redacted Composer is a self-redacting text editor created as part of the *Dear Redacted* exhibition.
+A digital composer invites you in, but the computer watches exactly how you type. You may write a letter to the powerful, but be warned: the machine knows the exact words you are looking for. As soon as you type a specific name, characteristic, or crime, it vanishes behind a thick black bar, forcing you to find an entirely new way to speak.
 
-The software continuously monitors written language and automatically censors predefined words in real time. As soon as specific names, characteristics, or phrases are typed, they are irreversibly replaced with black redaction bars.
-
-The result is a writing process that actively pressures language itself. Users cannot rely on familiar scripts, slogans, or repeated media phrasing. Instead, they are forced to invent new routes through thought and expression.
+Dear Redacted Composer is Artwork 1/40, and the name-giving piece for the exhibit Dear Redacted. It directly targets the predictable media scripts that dictate how we usually discuss sweeping scandals. By censoring specific keywords in real-time, the program pushes the visitor toward creative circumlocution. It effectively breaks the standard cycle of outrage-by-proxy. The user is required to engage their own original thought and vocabulary to successfully bypass the strict digital filter.
 
 This project exists simultaneously as:
 
