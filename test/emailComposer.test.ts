@@ -15,7 +15,7 @@ describe("buildGmailComposeUrl", () => {
     expect(parsed.searchParams.get("to")).toBe("person@example.com");
     expect(parsed.searchParams.get("su")).toBe("Dear Redacted");
     expect(parsed.searchParams.get("body")).toContain("Dear ███");
-    expect(parsed.searchParams.get("body")).toContain("wrote with Dear Redacted Composer");
+    expect(parsed.searchParams.get("body")).toContain("wrote with Dear Redacted Composer\nhttps://dear-redacted.github.io/composer/");
   });
 });
 
