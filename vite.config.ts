@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
 import { visualizer } from "rollup-plugin-visualizer";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig(() => {
   const shouldAnalyzeBundle = process.env.ANALYZE === "true";
@@ -12,6 +13,7 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
+      svgr(),
       shouldAnalyzeBundle &&
         visualizer({
           filename: "dist/bundle-report.html",
@@ -29,8 +31,6 @@ export default defineConfig(() => {
     server: {
       host: "127.0.0.1",
       strictPort: true,
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modify - file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== "true",
     },
   };

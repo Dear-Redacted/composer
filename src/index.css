@@ -1,31 +1,18 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Regular.ttf") format("truetype");
+}
+
 /*
-@font-face {
-  font-family: "Courier Prime";
-  src: url("/fonts/CourierPrime-Regular.ttf") format("truetype");
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Courier Prime";
-  src: url("/fonts/CourierPrime-Bold.ttf") format("truetype");
-  font-weight: 700;
-}
-*/
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
-  font-weight: 400;
-}
-
 @font-face {
   font-family: "Courier Prime";
   src: url("/fonts/CourierPrime-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
 }
+*/
 
 :root {
   --font-mono: "Courier Prime", monospace;
@@ -44,21 +31,6 @@
   --app-error: #b85c5c;
 }
 
-/*
-:root.light {
-  --app-bg: #f4efe7;
-  --app-bg-alt: #ebe2d6;
-  --app-container: #fcf9f4;
-  --app-fg: #181612;
-  --app-fg-muted: #6f6658;
-  --app-accent: #15130f;
-  --app-border: #d8cfc3;
-  --app-scrollbar: #b6aa99;
-  --app-grain: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(96, 72, 45, 0.07) 100%);
-  --app-shadow: 0 24px 70px rgba(73, 52, 29, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.72);
-  color-scheme: light;
-}
-*/
 
 :root.light {
   /* Paper */
@@ -83,10 +55,22 @@
   --app-error: #b85c5c;
 }
 
+/* Font options can be removed once block redaction implemented */
 body {
   background-color: var(--app-bg);
   color: var(--app-fg);
-  font-family: var(--font-mono);
+  font-family:
+    "IBM Plex Mono",
+    "Courier New",
+    monospace;
+ 
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "kern" 0, "liga" 0;
+  text-rendering: geometricPrecision;
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  letter-spacing: 0 !important;
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -119,7 +103,7 @@ html.light {
 
 /* Custom scrollbar for better immersion */
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -130,20 +114,27 @@ html.light {
   background: var(--app-scrollbar);
 }
 
-/* Editor gutter (line numbers) */
-.editor-gutter {
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 5;
-  background: transparent;
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--app-scrollbar) transparent;
 }
 
-.editor-gutter .editor-line-number {
-  color: var(--app-fg-muted);
-  line-height: 1.8;
-  text-align: right;
-  padding-right: 5px;
-  user-select: none;
-  pointer-events: none;
+.svg-icon {
+  fill: currentColor;
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
 }
+
+/* Mobile-first responsive terminal status text */
+.terminal-status {
+  display: none;
+}
+
+/* Show terminal status on tablets and larger screens */
+@media (min-width: 640px) {
+  .terminal-status {
+    display: block;
+  }
+}
+
