@@ -11,11 +11,16 @@ import { buildGmailComposeUrl } from "./emailComposer.shared";
  * @param body Email body text
  * @throws Error if popup is blocked or opening fails
  */
-export async function openGmailComposeBrowser(recipient: string, body: string): Promise<void> {
+export async function openGmailComposeBrowser(
+  recipient: string,
+  body: string,
+): Promise<void> {
   const gmailUrl = buildGmailComposeUrl(recipient, body);
 
   const opened = window.open(gmailUrl, "_blank");
   if (!opened) {
-    throw new Error("Browser popup was blocked. Please enable popups and try again.");
+    throw new Error(
+      "Browser popup was blocked. Please enable popups and try again.",
+    );
   }
 }

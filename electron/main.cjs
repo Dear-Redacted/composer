@@ -1,4 +1,11 @@
-const { app, BrowserWindow, Menu, ipcMain, shell, dialog } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  ipcMain,
+  shell,
+  dialog,
+} = require("electron");
 const path = require("path");
 const fs = require("fs/promises");
 
@@ -18,10 +25,17 @@ function buildGmailUrl(recipient, body) {
   }
 
   const subject = "Dear Redacted";
-  const footnote = "\n\n---\nwrote with Dear Redacted Composer\nhttps://dear-redacted.github.io/composer/";
+  const footnote =
+    "\n\n---\nwrote with Dear Redacted Composer\nhttps://dear-redacted.github.io/composer/";
   const finalBody = body + footnote;
 
-  const params = [`view=cm`, `fs=1`, `to=${encodeURIComponent(recipient)}`, `su=${encodeURIComponent(subject)}`, `body=${encodeURIComponent(finalBody)}`].join("&");
+  const params = [
+    `view=cm`,
+    `fs=1`,
+    `to=${encodeURIComponent(recipient)}`,
+    `su=${encodeURIComponent(subject)}`,
+    `body=${encodeURIComponent(finalBody)}`,
+  ].join("&");
 
   return `https://mail.google.com/mail/?${params}`;
 }
@@ -44,8 +58,8 @@ function createWindow() {
       preload: path.join(__dirname, "preload.cjs"),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: true
-    }
+      sandbox: true,
+    },
   });
   window.once("ready-to-show", () => {
     window.show();
@@ -79,8 +93,8 @@ app.whenReady().then(() => {
         { name: "TypeScript", extensions: ["ts", "tsx"] },
         { name: "CSS", extensions: ["css"] },
         { name: "JSON", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
-      ]
+        { name: "All Files", extensions: ["*"] },
+      ],
     });
 
     if (canceled || filePaths.length === 0) return null;
@@ -103,8 +117,8 @@ app.whenReady().then(() => {
         { name: "JSON", extensions: ["json"] },
         { name: "TypeScript", extensions: ["ts"] },
         { name: "Markdown", extensions: ["md"] },
-        { name: "All Files", extensions: ["*"] }
-      ]
+        { name: "All Files", extensions: ["*"] },
+      ],
     });
 
     if (canceled || !filePath) return null;
@@ -133,7 +147,7 @@ app.whenReady().then(() => {
       if (!recipient || !body) {
         return {
           success: false,
-          error: "Missing recipient or body"
+          error: "Missing recipient or body",
         };
       }
 
@@ -143,7 +157,7 @@ app.whenReady().then(() => {
     } catch (error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : String(error)
+        error: error instanceof Error ? error.message : String(error),
       };
     }
   });
