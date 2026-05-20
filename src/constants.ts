@@ -292,9 +292,11 @@ const ENCODED_FORBIDDEN_TERMS = [
   "ZWdnLXNoYXBlZA==",
   "ZWdnIHNoYXBlZA==",
   "YnVsbOKAmXMgaGVhZA==",
-  "YnVsbCBtYXNr"
+  "YnVsbCBtYXNr",
 ];
 
-export const FORBIDDEN_TERMS = ENCODED_FORBIDDEN_TERMS.map(term => fromBase64(term).toLowerCase());
+export const FORBIDDEN_TERMS = ENCODED_FORBIDDEN_TERMS.map((term) =>
+  fromBase64(term).toLowerCase(),
+);
 
 export const REDACTION_CHAR = "█";

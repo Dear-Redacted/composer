@@ -11,7 +11,15 @@ type Props = {
   isOpen?: boolean;
 };
 
-function ConfirmModal({ title = "Confirm", message = "", confirmLabel = "OK", cancelLabel = "Cancel", onConfirm, onCancel, isOpen = true }: Props) {
+function ConfirmModal({
+  title = "Confirm",
+  message = "",
+  confirmLabel = "OK",
+  cancelLabel = "Cancel",
+  onConfirm,
+  onCancel,
+  isOpen = true,
+}: Props) {
   const confirmButtonRef = useRef<HTMLButtonElement>(null);
 
   // Auto-focus confirm button when modal opens
@@ -24,7 +32,9 @@ function ConfirmModal({ title = "Confirm", message = "", confirmLabel = "OK", ca
   return (
     <BaseModal isOpen={isOpen} onClose={onCancel} closeOnEsc={true}>
       <div>
-        <h3 className="mb-4 border-b border-[var(--app-border)] pb-2 text-[10px] uppercase tracking-[2px] text-[var(--app-fg-muted)]">{title}</h3>
+        <h3 className="mb-4 border-b border-[var(--app-border)] pb-2 text-[10px] uppercase tracking-[2px] text-[var(--app-fg-muted)]">
+          {title}
+        </h3>
         <p className="mb-8 text-sm text-[var(--app-fg)]">{message}</p>
 
         <div className="flex gap-4">
@@ -35,7 +45,10 @@ function ConfirmModal({ title = "Confirm", message = "", confirmLabel = "OK", ca
           >
             {confirmLabel}
           </button>
-          <button onClick={onCancel} className="px-6 text-[10px] uppercase tracking-[2px] text-[var(--app-fg-muted)] transition-colors hover:text-red-400">
+          <button
+            onClick={onCancel}
+            className="px-6 text-[10px] uppercase tracking-[2px] text-[var(--app-fg-muted)] transition-colors hover:text-red-400"
+          >
             {cancelLabel}
           </button>
         </div>

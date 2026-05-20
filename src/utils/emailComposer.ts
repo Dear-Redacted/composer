@@ -4,7 +4,10 @@ export { buildGmailComposeUrl } from "./emailComposer.shared";
 declare global {
   interface Window {
     redactedComposer?: Readonly<{
-      openGmailCompose: (recipient: string, body: string) => Promise<{ success: boolean; data?: unknown; error?: string }>;
+      openGmailCompose: (
+        recipient: string,
+        body: string,
+      ) => Promise<{ success: boolean; data?: unknown; error?: string }>;
       // --- NEW NATIVE METHODS ---
       openFile: () => Promise<{ filePath: string; content: string } | null>;
       saveFileAs: (content: string) => Promise<string | null>;
@@ -22,7 +25,10 @@ export { isValidEmail };
  * @returns true if in Electron, false if in browser
  */
 export function isElectronEnvironment(): boolean {
-  return typeof window !== "undefined" && typeof window.redactedComposer !== "undefined";
+  return (
+    typeof window !== "undefined" &&
+    typeof window.redactedComposer !== "undefined"
+  );
 }
 
 // Note: platform-specific transports are loaded dynamically to keep web bundle small.
@@ -36,7 +42,10 @@ export function isElectronEnvironment(): boolean {
  * @param editorContent - Current editor content to send
  * @throws Error if email is invalid or opening fails
  */
-export async function openGmailCompose(recipient: string, editorContent: string): Promise<void> {
+export async function openGmailCompose(
+  recipient: string,
+  editorContent: string,
+): Promise<void> {
   if (!isValidEmail(recipient)) {
     throw new Error(`Invalid email: ${recipient}`);
   }

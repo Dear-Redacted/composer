@@ -66,7 +66,7 @@ The jury leaned forward as Jane recounted the Polaroid photos, the Polaroids tha
     "Media coverage",
     "Scandal",
     "Justice",
-    "Secrecy"
+    "Secrecy",
   ];
 
   async function countExpected(text: string) {
@@ -88,7 +88,7 @@ The jury leaned forward as Jane recounted the Polaroid photos, the Polaroids tha
   const speeds = [
     { name: "slow", delay: 50 },
     { name: "medium", delay: 25 },
-    { name: "fast", delay: 0 }
+    { name: "fast", delay: 0 },
   ];
 
   for (const s of speeds) {
@@ -122,7 +122,9 @@ The jury leaned forward as Jane recounted the Polaroid photos, the Polaroids tha
             (window as any).__testSetContent(txt);
             return true;
           }
-          const el = document.getElementById("main-editor") as HTMLTextAreaElement | null;
+          const el = document.getElementById(
+            "main-editor",
+          ) as HTMLTextAreaElement | null;
           if (!el) return false;
           el.value = (el.value || "") + txt;
           el.dispatchEvent(new Event("input", { bubbles: true }));
@@ -138,20 +140,28 @@ The jury leaned forward as Jane recounted the Polaroid photos, the Polaroids tha
       // long typing runs (slow mode) can finish without failing the test.
       const extraWait = Math.min(
         Math.max(10_000, s.delay * essay.length * 0.5), // heuristic: proportional to typed duration
-        4 * 60 * 1000 // cap to 4 minutes
+        4 * 60 * 1000, // cap to 4 minutes
       );
       const deadline = Date.now() + extraWait;
       let timeline: any[] = [];
       while (Date.now() < deadline) {
-        timeline = await page.evaluate(() => (window as any).__redactionTimeline || []);
-        const redactedCount = timeline.filter(e => e.type === "redacted").length;
+        timeline = await page.evaluate(
+          () => (window as any).__redactionTimeline || [],
+        );
+        const redactedCount = timeline.filter(
+          (e) => e.type === "redacted",
+        ).length;
         if (redactedCount >= expected) break;
         await page.waitForTimeout(200);
       }
 
       // final checks: prefer timeline telemetry for correctness, then sanity-check editor
-      const finalTimeline = await page.evaluate(() => (window as any).__redactionTimeline || []);
-      const redactedEvents = finalTimeline.filter((e: any) => e.type === "redacted");
+      const finalTimeline = await page.evaluate(
+        () => (window as any).__redactionTimeline || [],
+      );
+      const redactedEvents = finalTimeline.filter(
+        (e: any) => e.type === "redacted",
+      );
       expect(redactedEvents.length).toBeGreaterThanOrEqual(1);
 
       // Editor should contain the redaction char when the UI applied replacements.
@@ -167,7 +177,10 @@ The jury leaned forward as Jane recounted the Polaroid photos, the Polaroids tha
       }
 
       // also ensure we reached the expected total redactions for the essay
-      const totalRedactions = redactedEvents.reduce((sum: number, e: any) => sum + (e.redactionCount || 0), 0);
+      const totalRedactions = redactedEvents.reduce(
+        (sum: number, e: any) => sum + (e.redactionCount || 0),
+        0,
+      );
       expect(totalRedactions).toBeGreaterThanOrEqual(expected);
     });
   }

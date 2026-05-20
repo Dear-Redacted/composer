@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { lazy, Suspense, useState, useRef, useEffect, useCallback, ChangeEvent, KeyboardEvent } from "react";
+import {
+  lazy,
+  Suspense,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  ChangeEvent,
+  KeyboardEvent,
+} from "react";
 import { HEADER_PREFIX, INITIAL_CONTENT } from "./utils/redaction";
 import { useStatusMessage } from "./hooks/useStatusMessage";
 import { useRedaction } from "./hooks/useRedaction";
@@ -33,7 +42,9 @@ function getInitialTheme(): Theme {
     // Ignore storage failures and fall back to the system preference.
   }
 
-  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
 }
 
 const ConfirmModal = lazy(() => import("./components/ConfirmModal"));
@@ -51,7 +62,9 @@ export default function App() {
   // --- NEW STATE FOR FILE MANAGEMENT ---
   const [currentFile, setCurrentFile] = useState<string | null>(null);
   const [isDirty, setIsDirty] = useState(false);
-  const [pendingAction, setPendingAction] = useState<"new" | "open" | null>(null);
+  const [pendingAction, setPendingAction] = useState<"new" | "open" | null>(
+    null,
+  );
   // -------------------------------------
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
@@ -60,16 +73,22 @@ export default function App() {
   const { statusMessage, showMessage } = useStatusMessage();
   const { scanForRedaction } = useRedaction(
     editorRef,
-    newText => {
+    (newText) => {
       setContent(newText);
 
       // Keep this for the UI redaction indicator timing
       requestAnimationFrame(() => setIsRedacting(false));
     },
     () => setDeviationDetected(true),
-    () => setDeviationDetected(false)
+    () => setDeviationDetected(false),
   );
-  const { copyToClipboard, openDocument, saveDocument, saveDocumentAs, sendViaEmail } = useDocumentActions(showMessage);
+  const {
+    copyToClipboard,
+    openDocument,
+    saveDocument,
+    saveDocumentAs,
+    sendViaEmail,
+  } = useDocumentActions(showMessage);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", theme === "light");
@@ -106,7 +125,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const fileName = currentFile ? currentFile.split(/[/\\]/).pop() : "Untitled";
+    const fileName = currentFile
+      ? currentFile.split(/[/\\]/).pop()
+      : "Untitled";
     const title = `${fileName}${isDirty ? "*" : ""} - Dear Redacted`;
 
     document.title = title; // Update HTML title just in case
@@ -138,10 +159,8 @@ export default function App() {
         setIsRedacting(false);
       }
     },
-    [content, isDirty, scanForRedaction]
+    [content, isDirty, scanForRedaction],
   );
-
-
 
   // --- ACTION HANDLERS ---
   const executeNew = useCallback(() => {
@@ -152,7 +171,10 @@ export default function App() {
     requestAnimationFrame(() => {
       if (editorRef.current) {
         editorRef.current.focus();
-        editorRef.current.setSelectionRange(HEADER_PREFIX.length, HEADER_PREFIX.length);
+        editorRef.current.setSelectionRange(
+          HEADER_PREFIX.length,
+          HEADER_PREFIX.length,
+        );
       }
     });
   }, [showMessage]);
@@ -199,6 +221,10 @@ export default function App() {
     }
   }, [content, saveDocumentAs]);
 
+  const handleOpenEmailModal = useCallback(() => {
+    setShowEmailModal(true);
+  }, []);
+
   const confirmPendingAction = useCallback(() => {
     if (pendingAction === "new") executeNew();
     if (pendingAction === "open") executeOpen();
@@ -232,6 +258,9 @@ export default function App() {
         } else if (shortcutKey === "o") {
           e.preventDefault();
           handleOpen();
+        } else if (shortcutKey === "e") {
+          e.preventDefault();
+          handleOpenEmailModal();
         } else if (shortcutKey === "s") {
           e.preventDefault();
           if (e.shiftKey) handleSaveAs();
@@ -239,7 +268,7 @@ export default function App() {
         }
       }
     },
-    [handleNew, handleOpen, handleSave, handleSaveAs]
+    [handleNew, handleOpen, handleSave, handleSaveAs, handleOpenEmailModal],
   );
 
   // focus editor on mount and place caret after header
@@ -247,34 +276,45 @@ export default function App() {
     requestAnimationFrame(() => {
       if (editorRef.current) {
         editorRef.current.focus();
-        editorRef.current.setSelectionRange(HEADER_PREFIX.length, HEADER_PREFIX.length);
+        editorRef.current.setSelectionRange(
+          HEADER_PREFIX.length,
+          HEADER_PREFIX.length,
+        );
       }
     });
   }, []);
 
   return (
-    <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden bg-[var(--app-bg)] p-4 text-[var(--app-fg)] sm:p-6 lg:p-8 text-[15px] sm:text-[17px] md:text-[18px] lg:text-[21px]">
-    {/* Font Size Set until block redaction done */}
-      
+    <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden bg-[var(--app-bg)] text-[var(--app-fg)] text-[15px] sm:text-[17px] md:text-[18px] lg:text-[21px]">
+      {/* Font Size Set until block redaction done */}
+
       {/* Visual Effects */}
       <div className="screen-grain" />
 
       {/* Central Terminal Container */}
-      <div className="editor-container relative z-20 flex h-full w-full flex-col gap-5 p-6 sm:gap-6 sm:p-8 md:p-10 lg:p-14">
+      <div className="editor-container relative z-20 flex h-full w-full flex-col gap-5 p-10 sm:gap-6 sm:p-8 md:p-10 lg:p-14">
         {/* Status Bar */}
         <div className="status-bar flex items-center gap-6 border-b border-[var(--app-border)] pb-5 uppercase">
           <div className="flex items-center gap-6 flex-wrap">
-            <h1 className="terminal-status text-[12px] tracking-[1.5px] text-[var(--app-fg-muted)]">Composer Terminal: Connected</h1>
+            <h1 className="terminal-status text-[12px] tracking-[1.5px] text-[var(--app-fg-muted)]">
+              Composer Terminal: Connected
+            </h1>
           </div>
 
           <div className="ml-auto flex items-center gap-4">
             <div className="hidden text-[11px] tracking-widest text-[var(--app-container)] opacity-75 sm:block">
-              <span className={`transition-colors duration-300 ease-in ${deviationDetected ? "text-[var(--app-fg-muted)]" : "text-[var(--app-container)]"}`}>Deviation Detected</span>
+              <span
+                className={`transition-colors duration-300 ease-in ${deviationDetected ? "text-[var(--app-fg-muted)]" : "text-[var(--app-container)]"}`}
+              >
+                Deviation Detected
+              </span>
             </div>
 
             {/* Wrapped the circle to mirror the exact spatial footprint of the copy SVG below */}
             <div className="flex items-center justify-center h-3.5 w-3.5">
-              <div className={`flex h-2 w-2 rounded-full transition-colors duration-300 ease-in ${deviationDetected ? "bg-[var(--app-error)]" : "bg-[var(--app-success)]"}`}></div>
+              <div
+                className={`flex h-2 w-2 rounded-full transition-colors duration-300 ease-in ${deviationDetected ? "bg-[var(--app-error)]" : "bg-[var(--app-success)]"}`}
+              ></div>
             </div>
           </div>
         </div>
@@ -295,7 +335,7 @@ export default function App() {
           />
 
           {/* Sticky Overlay: Copy Button & Status Message */}
-          <div className="absolute bottom-4 right-4 z-30 flex items-center gap-3 text-right">
+          <div className="absolute bottom-4 right-[calc(var(--spacing)*0)] md:right-4 z-30 flex items-center gap-3 text-right">
             <div className="text-[9px] tracking-widest text-[var(--app-fg-muted)]">
               {statusMessage ? (
                 <span className="block max-w-[14rem] truncate animate-pulse">
@@ -314,7 +354,7 @@ export default function App() {
               title="Copy body text"
             >
               <CopyIcon
-                className="h-3.5 w-3.5 fill-current opacity-90 transition-opacity group-hover:opacity-100"
+                className="svg-icon opacity-90 transition-opacity group-hover:opacity-100"
                 aria-hidden="true"
               />
             </button>
@@ -328,18 +368,30 @@ export default function App() {
           onOpen={handleOpen}
           onSave={handleSave}
           onOpenEmailModal={() => setShowEmailModal(true)}
-          onToggleTheme={() => setTheme(currentTheme => (currentTheme === "dark" ? "light" : "dark"))}
+          onToggleTheme={() =>
+            setTheme((currentTheme) =>
+              currentTheme === "dark" ? "light" : "dark",
+            )
+          }
         />
       </div>
 
       <Suspense fallback={null}>
         {/* Email Modal */}
-        <EmailModal isOpen={showEmailModal} onClose={() => setShowEmailModal(false)} onSend={handleSend} email={email} onEmailChange={setEmail} />
+        <EmailModal
+          isOpen={showEmailModal}
+          onClose={() => setShowEmailModal(false)}
+          onSend={handleSend}
+          email={email}
+          onEmailChange={setEmail}
+        />
 
         {/* Dynamic Confirm Modal for New / Open */}
         <ConfirmModal
           isOpen={pendingAction !== null}
-          title={pendingAction === "new" ? "Start new document?" : "Open document?"}
+          title={
+            pendingAction === "new" ? "Start new document?" : "Open document?"
+          }
           message="Current progress will be lost. Proceed?"
           confirmLabel="Proceed"
           cancelLabel="Cancel"

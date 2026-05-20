@@ -35,10 +35,10 @@ describe("redactContent", () => {
   });
 
   it("does not redact ordinary text that only partially overlaps a phrase", () => {
-    const result = redactContent(`${HEADER_PREFIX}Palm Beach, Finland`);
+    const result = redactContent(`${HEADER_PREFIX}Federal Bureau, Finland`);
 
     expect(result.found).toBe(false);
-    expect(result.newText).toBe(`${HEADER_PREFIX}Palm Beach, Finland`);
+    expect(result.newText).toBe(`${HEADER_PREFIX}Federal Bureau, Finland`);
   });
 
   it("does not redact a phrase when it is part of a longer word", () => {

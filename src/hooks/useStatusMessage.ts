@@ -11,19 +11,22 @@ export function useStatusMessage() {
   /**
    * Display a status message that auto-clears after a duration
    */
-  const showMessage = useCallback((message: string, duration: number = 3000) => {
-    setStatusMessage(message);
+  const showMessage = useCallback(
+    (message: string, duration: number = 3000) => {
+      setStatusMessage(message);
 
-    // Clear any pending timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+      // Clear any pending timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
 
-    // Set new timeout to clear message
-    timeoutRef.current = setTimeout(() => {
-      setStatusMessage(null);
-    }, duration);
-  }, []);
+      // Set new timeout to clear message
+      timeoutRef.current = setTimeout(() => {
+        setStatusMessage(null);
+      }, duration);
+    },
+    [],
+  );
 
   /**
    * Clear the message immediately and cancel pending timeout
@@ -50,8 +53,8 @@ export function useStatusMessage() {
     () => ({
       statusMessage,
       showMessage,
-      clearMessage
+      clearMessage,
     }),
-    [statusMessage, showMessage, clearMessage]
+    [statusMessage, showMessage, clearMessage],
   );
 }

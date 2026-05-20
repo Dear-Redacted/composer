@@ -6,7 +6,9 @@ test.describe("Redacted Confessional E2E", () => {
     await page.waitForSelector("#main-editor");
   });
 
-  test("new document initializes and save stores modified content", async ({ page }) => {
+  test("new document initializes and save stores modified content", async ({
+    page,
+  }) => {
     // 1. Open new document flow and confirm
     await page.click("#nav-new");
     await page.click('button:has-text("New Document")');
@@ -15,7 +17,9 @@ test.describe("Redacted Confessional E2E", () => {
     await expect(editor).toHaveValue("Dear ");
 
     // 2. Type some normal text
-    await editor.pressSequentially("Diary, today was a good day.", { delay: 20 });
+    await editor.pressSequentially("Diary, today was a good day.", {
+      delay: 20,
+    });
 
     // 3. Save document and verify localStorage key contains the NEW text
     await page.click("#nav-save");
@@ -23,7 +27,9 @@ test.describe("Redacted Confessional E2E", () => {
     expect(saved).toBe("Dear Diary, today was a good day.");
   });
 
-  test("redacts forbidden words dynamically and shows deviation alert", async ({ page }) => {
+  test("redacts forbidden words dynamically and shows deviation alert", async ({
+    page,
+  }) => {
     const editor = page.locator("#main-editor");
 
     // Position cursor at the end and type a forbidden word

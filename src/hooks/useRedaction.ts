@@ -3,7 +3,7 @@ import {
   useRef,
   useEffect,
   startTransition,
-  RefObject
+  RefObject,
 } from "react";
 import { redactContent } from "../utils/redaction";
 
@@ -26,10 +26,14 @@ export function useRedaction(
   editorRef: RefObject<HTMLTextAreaElement | HTMLInputElement | null>,
   onRedacted: (newText: string) => void,
   onDeviationDetected: () => void,
-  onDeviationClear: () => void
+  onDeviationClear: () => void,
 ) {
-  const redactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const deviationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const redactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const deviationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const REDACTION_DEBOUNCE_MS = 50;
   // In useRedaction.ts - Track cursor position before redaction
 
@@ -38,7 +42,8 @@ export function useRedaction(
   // redactions were applied. Kept intentionally tiny and optional.
   if (typeof window !== "undefined") {
     const telemetryWindow = window as WindowWithRedactionTimeline;
-    if (!telemetryWindow.__redactionTimeline) telemetryWindow.__redactionTimeline = [];
+    if (!telemetryWindow.__redactionTimeline)
+      telemetryWindow.__redactionTimeline = [];
   }
 
   /**
@@ -47,20 +52,24 @@ export function useRedaction(
   const scanForRedaction = useCallback(
     (text: string) => {
       const oldSelectionStart = editorRef.current?.selectionStart ?? 0;
-      if (redactionTimeoutRef.current) clearTimeout(redactionTimeoutRef.current);
+      if (redactionTimeoutRef.current)
+        clearTimeout(redactionTimeoutRef.current);
 
       // record scheduling event for telemetry
       if (typeof window !== "undefined") {
         (window as WindowWithRedactionTimeline).__redactionTimeline?.push({
           type: "scan-scheduled",
           t: Date.now(),
-          len: text.length
+          len: text.length,
         });
       }
       redactionTimeoutRef.current = setTimeout(() => {
         // note scan fired
         if (typeof window !== "undefined") {
-          (window as WindowWithRedactionTimeline).__redactionTimeline?.push({ type: "scan-fired", t: Date.now() });
+          (window as WindowWithRedactionTimeline).__redactionTimeline?.push({
+            type: "scan-fired",
+            t: Date.now(),
+          });
         }
 
         const { newText, found } = redactContent(text);
@@ -79,7 +88,7 @@ export function useRedaction(
                 if (editorRef.current) {
                   editorRef.current.setSelectionRange(
                     oldSelectionStart,
-                    oldSelectionStart
+                    oldSelectionStart,
                   );
                 }
               });
@@ -92,16 +101,20 @@ export function useRedaction(
               type: "redacted",
               t: Date.now(),
               // small hint: number of replacement chars in the new text
-              redactionCount: (newText.match(/█/g) || []).length
+              redactionCount: (newText.match(/█/g) || []).length,
             });
           }
 
-          if (deviationTimeoutRef.current) clearTimeout(deviationTimeoutRef.current);
-          deviationTimeoutRef.current = setTimeout(() => onDeviationClear(), 1200);
+          if (deviationTimeoutRef.current)
+            clearTimeout(deviationTimeoutRef.current);
+          deviationTimeoutRef.current = setTimeout(
+            () => onDeviationClear(),
+            1200,
+          );
         }
       }, REDACTION_DEBOUNCE_MS);
     },
-    [editorRef, onRedacted, onDeviationDetected, onDeviationClear]
+    [editorRef, onRedacted, onDeviationDetected, onDeviationClear],
   );
 
   /**
@@ -119,6 +132,6 @@ export function useRedaction(
   }, []);
 
   return {
-    scanForRedaction
+    scanForRedaction,
   };
 }

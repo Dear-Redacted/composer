@@ -16,14 +16,22 @@ declare const window: Window & {
  * @param body Email body text
  * @throws Error if IPC communication fails or email is invalid
  */
-export async function openGmailComposeElectron(recipient: string, body: string): Promise<void> {
+export async function openGmailComposeElectron(
+  recipient: string,
+  body: string,
+): Promise<void> {
   if (!window.redactedComposer?.openGmailCompose) {
     throw new Error("Electron bridge not available");
   }
 
-  const result = await window.redactedComposer.openGmailCompose(recipient, body);
+  const result = await window.redactedComposer.openGmailCompose(
+    recipient,
+    body,
+  );
 
   if (!result?.success) {
-    throw new Error(`Failed to open Gmail: ${result?.error ?? "Unknown error"}`);
+    throw new Error(
+      `Failed to open Gmail: ${result?.error ?? "Unknown error"}`,
+    );
   }
 }

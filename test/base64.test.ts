@@ -8,15 +8,23 @@ afterEach(() => {
 
 describe("base64 helpers", () => {
   it("uses the browser globals when available", () => {
-    expect(toBase64("Palm Beach, Florida")).toBe("UGFsbSBCZWFjaCwgRmxvcmlkYQ==");
-    expect(fromBase64("UGFsbSBCZWFjaCwgRmxvcmlkYQ==")).toBe("Palm Beach, Florida");
+    expect(toBase64("Palm Beach, Florida")).toBe(
+      "UGFsbSBCZWFjaCwgRmxvcmlkYQ==",
+    );
+    expect(fromBase64("UGFsbSBCZWFjaCwgRmxvcmlkYQ==")).toBe(
+      "Palm Beach, Florida",
+    );
   });
 
   it("falls back to Buffer when browser globals are unavailable", () => {
     vi.stubGlobal("btoa", undefined);
     vi.stubGlobal("atob", undefined);
 
-    expect(toBase64("Palm Beach, Florida")).toBe("UGFsbSBCZWFjaCwgRmxvcmlkYQ==");
-    expect(fromBase64("UGFsbSBCZWFjaCwgRmxvcmlkYQ==")).toBe("Palm Beach, Florida");
+    expect(toBase64("Palm Beach, Florida")).toBe(
+      "UGFsbSBCZWFjaCwgRmxvcmlkYQ==",
+    );
+    expect(fromBase64("UGFsbSBCZWFjaCwgRmxvcmlkYQ==")).toBe(
+      "Palm Beach, Florida",
+    );
   });
 });

@@ -24,13 +24,16 @@
   --app-accent: #f5f5f3;
   --app-border: #1c1c1c;
   --app-scrollbar: #222;
-  --app-grain: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0) 100%);
+  --app-grain: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
   --app-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
   --app-success: #5b8266;
   --app-error: #b85c5c;
 }
-
 
 :root.light {
   /* Paper */
@@ -48,7 +51,11 @@
 
   --app-selection: #d9c7a7;
   --app-caret: #2a2017;
-  --app-grain: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.04) 100%);
+  --app-grain: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0.01) 0%,
+    rgba(0, 0, 0, 0.04) 100%
+  );
   --app-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   color-scheme: light;
   --app-success: #5b8266;
@@ -59,14 +66,13 @@
 body {
   background-color: var(--app-bg);
   color: var(--app-fg);
-  font-family:
-    "IBM Plex Mono",
-    "Courier New",
-    monospace;
- 
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+
   font-kerning: none;
   font-variant-ligatures: none;
-  font-feature-settings: "kern" 0, "liga" 0;
+  font-feature-settings:
+    "kern" 0,
+    "liga" 0;
   text-rendering: geometricPrecision;
   -webkit-text-size-adjust: 100%;
   font-synthesis: none;
@@ -122,8 +128,8 @@ html.light {
 
 .svg-icon {
   fill: currentColor;
-  width: calc(var(--spacing) * 5);
-  height: calc(var(--spacing) * 5);
+  width: calc(var(--spacing) * 5.5);
+  height: calc(var(--spacing) * 5.5);
 }
 
 /* Mobile-first responsive terminal status text */
@@ -137,4 +143,3 @@ html.light {
     display: block;
   }
 }
-

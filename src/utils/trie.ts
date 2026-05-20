@@ -33,14 +33,18 @@ const buildTrie = (terms: readonly string[]) => {
 const FORBIDDEN_TERM_TRIE = buildTrie(FORBIDDEN_TERMS);
 
 const MAX_KEYWORD_LENGTH = Math.max(
-  ...FORBIDDEN_TERMS.map(term => term.length)
+  ...FORBIDDEN_TERMS.map((term) => term.length),
 );
 
 const WORD_CHAR_PATTERN = /[\p{L}\p{N}_]/u;
 
-const isWordChar = (character: string | undefined) => character !== undefined && WORD_CHAR_PATTERN.test(character);
+const isWordChar = (character: string | undefined) =>
+  character !== undefined && WORD_CHAR_PATTERN.test(character);
 
-export const findMatchAt = (text: string, startIndex: number): RedactionMatch | null => {
+export const findMatchAt = (
+  text: string,
+  startIndex: number,
+): RedactionMatch | null => {
   const precedingCharacter = text[startIndex - 1];
 
   if (isWordChar(precedingCharacter)) return null;

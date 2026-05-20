@@ -9,7 +9,9 @@ type OpenDocumentResult = {
 /**
  * Hook for document-level actions: save, send, copy
  */
-export function useDocumentActions(onShowMessage: (message: string, duration?: number) => void) {
+export function useDocumentActions(
+  onShowMessage: (message: string, duration?: number) => void,
+) {
   /**
    * Handle copy-to-clipboard with fallback for older browsers
    */
@@ -22,10 +24,13 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
         } else {
           // Fallback for older browsers - schedule to idle to avoid blocking
           type IdleScheduler = (cb: () => void) => number;
-          const requestIdle: IdleScheduler | undefined = (window as unknown as { requestIdleCallback?: IdleScheduler }).requestIdleCallback;
-          const scheduleIdleWork: IdleScheduler = requestIdle ?? ((cb: () => void) => window.setTimeout(cb, 50));
+          const requestIdle: IdleScheduler | undefined = (
+            window as unknown as { requestIdleCallback?: IdleScheduler }
+          ).requestIdleCallback;
+          const scheduleIdleWork: IdleScheduler =
+            requestIdle ?? ((cb: () => void) => window.setTimeout(cb, 50));
 
-          await new Promise<void>(resolve => {
+          await new Promise<void>((resolve) => {
             scheduleIdleWork(() => {
               const fallbackField = document.createElement("textarea");
               fallbackField.value = text;
@@ -37,7 +42,8 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
               fallbackField.focus();
               fallbackField.select();
               const copied = document.execCommand("copy");
-              if (fallbackField.parentNode) document.body.removeChild(fallbackField);
+              if (fallbackField.parentNode)
+                document.body.removeChild(fallbackField);
 
               if (!copied) {
                 resolve();
@@ -53,7 +59,7 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
         onShowMessage("Copy failed.", 2500);
       }
     },
-    [onShowMessage]
+    [onShowMessage],
   );
 
   /**
@@ -65,7 +71,7 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
     }
 
     // Web fallback: use a hidden file input to let the user pick a file
-    return await new Promise<OpenDocumentResult>(resolve => {
+    return await new Promise<OpenDocumentResult>((resolve) => {
       const input = document.createElement("input");
       input.type = "file";
       input.accept = ".txt,.md,.py,.html,.js,.jsx,.ts,.tsx,.css,.json";
@@ -87,7 +93,8 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
 
         const reader = new FileReader();
         reader.onload = () => {
-          const content = typeof reader.result === "string" ? reader.result : "";
+          const content =
+            typeof reader.result === "string" ? reader.result : "";
           cleanup();
           onShowMessage("Document loaded.", 2000);
           resolve({ filePath: file.name, content });
@@ -110,7 +117,10 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
    */
   const saveDocument = useCallback(
     async (content: string, currentPath: string | null) => {
-      if (window.redactedComposer?.saveFile && window.redactedComposer?.saveFileAs) {
+      if (
+        window.redactedComposer?.saveFile &&
+        window.redactedComposer?.saveFileAs
+      ) {
         if (currentPath) {
           // Overwrite existing file
           await window.redactedComposer.saveFile(currentPath, content);
@@ -128,7 +138,7 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
         // Web fallback: lazily load download only when needed to keep bundle small
         localStorage.setItem("untitled", content);
         import("../utils/fileExport")
-          .then(mod => {
+          .then((mod) => {
             mod.downloadTextFile(content);
           })
           .catch(() => {
@@ -138,7 +148,7 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
         return "web-download";
       }
     },
-    [onShowMessage]
+    [onShowMessage],
   );
 
   /**
@@ -155,7 +165,7 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
       }
       return null;
     },
-    [onShowMessage]
+    [onShowMessage],
   );
 
   /**
@@ -175,14 +185,17 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
       try {
         const { openGmailCompose } = await import("../utils/emailComposer");
         await openGmailCompose(recipient, content);
-        onShowMessage("Gmail opened successfully. Complete the send in your browser.", 2000);
+        onShowMessage(
+          "Gmail opened successfully. Complete the send in your browser.",
+          2000,
+        );
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error);
         onShowMessage(`Error: ${errorMsg}`, 4000);
         throw error;
       }
     },
-    [onShowMessage]
+    [onShowMessage],
   );
 
   return {
@@ -190,6 +203,6 @@ export function useDocumentActions(onShowMessage: (message: string, duration?: n
     openDocument,
     saveDocument,
     saveDocumentAs,
-    sendViaEmail
+    sendViaEmail,
   };
 }
