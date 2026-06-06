@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/badge/Launch-Web%20Version-black?style=for-the-badge" />
   </a>
   
-  <a href="https://github.com/Dear-Redacted/composer/releases/latest">
+  <a href="https://github.com/Dear-Redacted/composer/releases">
     <img src="https://img.shields.io/badge/Download-Releases-black?style=for-the-badge" />
   </a>
 </p>
@@ -21,7 +21,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Web-black" />
   <img src="https://img.shields.io/badge/built%20with-Electron-black" />
-  <img src="https://img.shields.io/github/v/releases/Dear-Redacted/composer" />
+  <img src="https://img.shields.io/github/v/release/Dear-Redacted/composer" />
   <img src="https://img.shields.io/github/license/Dear-Redacted/composer" />
   <img src="https://img.shields.io/github/stars/Dear-Redacted/composer?style=social" />
 </p>
